@@ -1,0 +1,39 @@
+
+  <!-- <mat-toolbar color="primary" class="form-inline my-2 my-lg-0">PRI Survey
+    <button (click)="logout()" class="btn btn-outline-success mat-raised-button">Logout</button> 
+  </mat-toolbar><br> -->
+
+  <form #surveyForm ="ngForm">
+    
+  <mat-card class="example-card" *appQuestionsLoop="let question of questions form surveyForm; let i = index; let c = controller">
+    <mat-card-header>
+      <mat-card-title>{{i + 1}}. {{question.question}}</mat-card-title>
+      <mat-card-subtitle>Select one of the following options</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-radio-group required *ngIf="question.type === 'radio'" class="example-radio-group" name="favoriteSeason" [(ngModel)]="favoriteSeason">
+        <mat-radio-button class="example-radio-button" *ngFor="let season of question.options" [value]="season">
+          {{season.age}}
+          {{season.sex}}
+          {{season.origin}}
+          {{season.profession}}
+          {{season.wkdact}}
+          {{season.tastebud}}
+          {{season.vacation}}
+          {{season.instinct}}
+        </mat-radio-button>
+        <!-- <img class="image" src="{{question.image}}"  width="500" height="350"> -->
+        <button class="mat-raised-button" type="submit" (click)="getvalues()">Submit response</button>
+      </mat-radio-group>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button class="mat-raised-button btn-outline-success" (click)="c.prev()" [disabled]="c.isFirst()"><mat-icon>arrow_back</mat-icon></button>
+      <button mat-raised-button  color="primary" style="float:right;" *ngIf="c.isLast(); else nextBtn" (click)="Submit()">Click To See Your Fragrance</button>
+      <ng-template #nextBtn>
+        <button mat-button class="mat-raised-button btn-outline-success"  (click)="c.next()"><mat-icon>arrow_forward</mat-icon></button>
+      </ng-template>
+      <!-- <button class="mat-raised-button" type="submit" (click)="getvalues();c.next()">Submit response</button> -->
+    </mat-card-actions>
+    <!-- <app-footer [index]="i" [total]="questions.length"></app-footer> -->
+  </mat-card>
+  </form>

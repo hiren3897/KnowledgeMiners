@@ -1,0 +1,11 @@
+.btn .btn-outline-success {
+    top: 10px;
+  }
+
+  /* .intro-2 {
+    background: url("https://cdn.pixabay.com/photo/2018/05/13/18/06/scent-of-roses-3397281__340.jpg")no-repeat center center;
+    background-size: cover;
+  } */
+  .view {
+    height: 100vh !important;
+  }

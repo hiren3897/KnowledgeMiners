@@ -1,0 +1,70 @@
+
+<form #reccomendresult ="ngForm">
+	<mat-card class="example-card" *appQuestionsLoop="let purfume of categorys form reccomendresult; let i = index; let c = controller">
+	  <mat-card-header>
+		<mat-card-title>{{i + 1}}. {{purfume.Catogery}}</mat-card-title>
+		<mat-card-subtitle>Your Reccommended Purfumes</mat-card-subtitle>
+	  </mat-card-header>
+	  <mat-card-content>
+		<!-- <mat-radio-group required *ngIf="purfume.type === 'Citrus'" class="example-radio-group">
+		  <mat-radio-button class="example-radio-button" *ngFor="let citrus of purfume.scents" [value]="citrus" >
+ 
+			<img [src]="citrus.image" style="height: auto;width: auto;" />
+			{{citrus.description}}
+		  </mat-radio-button>
+		   <img class="image" src="{{question.image}}"  width="500" height="350"> 
+		 <button class="mat-raised-button" type="submit" (click)="getvalues()">Submit response</button> 
+		</mat-radio-group> -->
+		<div class="container" *ngIf="purfume.type === 'Citrus'">
+			<ol *ngFor="let citrus of purfume.scents" >
+				<li><img [src]="citrus.image" style="height: 130px;width: 120px;" /></li>
+			</ol>
+		</div>
+		<div class="container" *ngIf="purfume.type === 'Floral'">
+		  <ol *ngFor="let citrus of purfume.scents" >
+			  <li><img [src]="citrus.image" style="height: 130px;width: 120px;" /></li>
+		  </ol>
+	  	</div>
+	  	<div class="container" *ngIf="purfume.type === 'Fruity'">
+		  <ol *ngFor="let citrus of purfume.scents" >
+			  <li><img [src]="citrus.image" style="height: 130px;width: 120px;" /></li>
+		  </ol>
+	 	</div>
+	 	<div class="container" *ngIf="purfume.type === 'Green'">
+			<ol *ngFor="let citrus of purfume.scents" >
+				<li><img [src]="citrus.image" style="height: 130px;width: 120px;" /></li>
+			</ol>
+		</div>
+		<div class="container" *ngIf="purfume.type === 'Oceanic'">
+	  		<ol *ngFor="let citrus of purfume.scents" >
+		 		 <li><img [src]="citrus.image" style="height: 130px;width: 120px;" /></li>
+	 		</ol>
+  		</div>
+  		<div class="container" *ngIf="purfume.type === 'Oriental'">
+	  		<ol *ngFor="let citrus of purfume.scents" >
+		  		<li><img [src]="citrus.image" style="height: 130px;width: 120px;" /></li>
+	  		</ol>
+  		</div>
+  		<div class="container" *ngIf="purfume.type === 'Spicy'">
+			<ol *ngFor="let citrus of purfume.scents" >
+				<li><img [src]="citrus.image" style="height: 130px;width: 120px;" /></li>
+			</ol>
+		</div>
+		<div class="container" *ngIf="purfume.type === 'Woody'">
+			<ol *ngFor="let citrus of purfume.scents" >
+				<li><img [src]="citrus.image" style="height: 130px;width: 120px;" /></li>
+			</ol>
+		</div>
+		
+	  </mat-card-content>
+	
+	  <!-- <mat-card-actions>
+		<button mat-button class="mat-raised-button btn-outline-success" (click)="c.prev()" [disabled]="c.isFirst()"><mat-icon>arrow_back</mat-icon></button>
+		<button mat-raised-button  color="primary" style="float:right;" *ngIf="c.isLast(); else nextBtn">Click To See Your Fragrance</button>
+		<ng-template #nextBtn>
+		  <button mat-button class="mat-raised-button btn-outline-success"  (click)="c.next()"><mat-icon>arrow_forward</mat-icon></button>
+		</ng-template>
+	  </mat-card-actions> -->
+	  <!-- <app-footer [index]="i" [total]="questions.length"></app-footer> -->
+	</mat-card>
+	</form>

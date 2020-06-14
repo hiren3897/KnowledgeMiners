@@ -1,0 +1,7 @@
+.intro-2 {
+    background: url("https://cdn.pixabay.com/photo/2018/01/15/22/22/essential-oils-3084952__340.jpg")no-repeat center center;
+    background-size: cover;
+  }
+  .view {
+    height: 100vh !important;
+  }
