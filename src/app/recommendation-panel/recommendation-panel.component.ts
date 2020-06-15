@@ -1,5 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnInit, Output, Input } from '@angular/core';
-import { DashboardComponent } from '../dashboard/dashboard.component'
+import {  HttpClient } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 const purfumes = [{
   id: 1,
@@ -100,10 +102,30 @@ const purfumes = [{
 })
 export class RecommendationPanelComponent implements OnInit {
   categorys = purfumes[0].categories;
-  constructor() { }
+  category;
+  prediction:string
+  getRec: string = "http://ec2-100-26-219-28.compute-1.amazonaws.com:3000/get_recommendation/420";
+  constructor(private http:HttpClient,private router:Router, private route: ActivatedRoute) {
+    this.route.queryParams.subscribe(params => {
+      if (params && params.special) {
+        this.prediction = JSON.parse(params.special)
+        this.category = this.categorys.filter(x => x.type === this.prediction)[0];
+        console.log(this.category.type);
+      }
+    });
+  
+  }
 
   ngOnInit(): void {
-    console.log(this.categorys);
+    // console.log(this.categorys);
+    this.getprediction();
+  }
+
+  getprediction() {
+    this.http.get(this.getRec).subscribe(data => {
+      var pred = data;
+      
+    })
   }
 
 }

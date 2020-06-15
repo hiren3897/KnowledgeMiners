@@ -1,23 +1,28 @@
 import { Component, OnInit } from '@angular/core';  
 import { GoogleLoginProvider, FacebookLoginProvider, AuthService } from 'angularx-social-login';  
-import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';  
 import { Socialusers } from '../Models/SocialUsers.model'  
 import { SocialloginService } from '../social-login.service';  
 import { Router, ActivatedRoute, Params } from '@angular/router';  
+import { Users } from '../Models/user.model';
+import { HttpClient } from '@angular/common/http';
+
 @Component({  
   selector: 'app-login',  
   templateUrl: './login.component.html',  
   styleUrls: ['./login.component.css']  
 })  
 export class LoginComponent implements OnInit {  
-  response: any;  
+  response: any;
+  users = new Users();  
   EnteredEmail: String;
   EnteredPassword: String;
+  Login:string = "http://ec2-100-26-219-28.compute-1.amazonaws.com:3000/login";
     socialusers=new Socialusers();  
   constructor(  
     public OAuth: AuthService,  
     private SocialloginService: SocialloginService,  
-    private router: Router  
+    private router: Router,
+    private http: HttpClient
   ) { }  
   ngOnInit() {  
   }  
@@ -46,10 +51,9 @@ export class LoginComponent implements OnInit {
     })  
   } 
   LogInFunc() {
-    if (this.EnteredEmail == 'User' && this.EnteredPassword == '1234')
-    this.router.navigate((['User']));
-    else
-    this.router.navigate((['Admin']));
+    this.http.post(this.Login,this.users).subscribe(data => {
+      this.router.navigate((['User']));
+    })
   } 
   GoToRegester() {
     this.router.navigate((['Register']));

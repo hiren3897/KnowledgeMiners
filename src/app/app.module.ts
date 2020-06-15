@@ -19,6 +19,7 @@ import { RecommendationPanelComponent } from './recommendation-panel/recommendat
 import { GalleryModule } from 'ng-gallery';
 
 
+
 export function socialConfigs() {  
   const config = new AuthServiceConfig(  
     [  
@@ -55,7 +56,7 @@ export function socialConfigs() {
     ReactiveFormsModule,
     GalleryModule,
   ],  
-  providers: [  
+  providers: [ 
     AuthService,  
     {  
       provide: AuthServiceConfig,  

@@ -2,13 +2,12 @@ import { Component, OnInit, Output  } from '@angular/core';
 import { SocialLoginModule, AuthServiceConfig, AuthService } from 'angularx-social-login';  
 import { Socialusers } from '../Models/SocialUsers.model'  
 import { SocialloginService } from '../social-login.service';  
-import { Router } from '@angular/router'; 
+import { Router, NavigationExtras } from '@angular/router'; 
 import { HttpClient } from '@angular/common/http';
-import { Variable } from '@angular/compiler/src/render3/r3_ast';
 import { RecommendationPanelComponent } from '../recommendation-panel/recommendation-panel.component';
-import { strict } from 'assert';
 import { exit } from 'process';
-import { EventEmitter } from 'events';
+import { Users } from '../Models/user.model';
+
 
 const surveys = [{
   id: 1,
@@ -110,23 +109,25 @@ const surveys = [{
   providers: [RecommendationPanelComponent] 
 })  
 export class DashboardComponent implements OnInit { 
-  @Output() messageEvent = new EventEmitter();
+  users = new Users()
   responses: string[] = [];
+  Finalresponses: string[] = [];
   favoriteSeason:string;
-  private headers = new Headers({'Content-Type': 'application/json'});
-  json_: string;
+  UserDetails: string;
   posteddata: string;
   WebURL: string = "http://127.0.0.1:12345/predict";
   python: string = "http://ec2-100-26-219-28.compute-1.amazonaws.com:5000/predict";
   AWSUrl:string = "http://ec2-100-26-219-28.compute-1.amazonaws.com:3000/set_recommendation";
+  getUSer: string = "http://ec2-100-26-219-28.compute-1.amazonaws.com:3000/get_user/1";
   questions = surveys[0].questions;
   socialusers = new Socialusers();  
-  constructor(public OAuth: AuthService,private router: Router, private http: HttpClient, private recommend: RecommendationPanelComponent) { }  
+  constructor(public OAuth: AuthService,private router: Router, private http: HttpClient, private recommend: RecommendationPanelComponent) {
+  }  
  
   ngOnInit() {  
     this.socialusers = JSON.parse(localStorage.getItem('socialusers'));  
-    console.log(this.socialusers.email);  
-    console.log(this.messageEvent.emit(this.posteddata))
+    //console.log(this.socialusers.email);  
+    
   }  
   logout() {  
    alert(1);    
@@ -145,21 +146,35 @@ export class DashboardComponent implements OnInit {
     console.log(UserResponses);
     var headers: { "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token", "Access-Control-Allow-Origin": "*"}
     this.http.post(this.python,UserResponses).subscribe(data => {  
-      // this.posteddata = data as string;
     Object.entries(data).forEach(([key, value]) => {
-        // console.log(key, value);
         this.posteddata = value;
         console.log(this.posteddata);
         Object.entries(this.recommend.categorys).forEach(([key, value]) => {
           if(value.type.includes(this.posteddata)) {
-
-            this.router.navigate([`/result`]);
+            let navigationExtras: NavigationExtras = {
+              queryParams: {
+                special: JSON.stringify(this.posteddata)
+              }
+            };
+            this.router.navigate([`/result`],navigationExtras);
           }else {
             return exit;
           }
           }
        );
      });
+    })  
+    this.http.get<Users>(this.getUSer).subscribe(data => {
+      // this.UserDetails = JSON.stringify(data);
+      // console.log(this.UserDetails);
+      Object.entries(data).forEach(([key, value]) => {
+      console.log(key,value);
+        // this.responses.push(key + value.email, key + value.password,value.timestamp);
+        // console.log(this.responses);
+      })
+    
+    
+    
     })
   }
 }
