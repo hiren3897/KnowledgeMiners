@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
 
   RegisterUser() {
     this.http.post(this.Setuser, this.users).subscribe(Data => {
-      this.router.navigate((['login']));
+      this.router.navigate((['User']));
     })
       
   }

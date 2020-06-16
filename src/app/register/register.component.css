@@ -1,7 +1,9 @@
 .example-card {
-    max-width: 500px;
-    align-self: stretch;
-    margin-left: 33%;
+    max-width: 600px;
+    /* align-self: center; */
+    /* margin-left: 33%; */
+    margin: 0 auto;
+    width: 80%;
   }
 html,body{height:100%;margin:0;padding:0;}
 body{background-image:url(https://lh4.googleusercontent.com/-XplyTa1Za-I/VMSgIyAYkHI/AAAAAAAADxM/oL-rD6VP4ts/w1184-h666/Android-Lollipop-wallpapers-Google-Now-Wallpaper-2.png);background-position:center;background-size:cover;background-repeat:no-repeat;min-height:100vh;font-family:'Roboto', sans-serif;}
@@ -15,3 +17,21 @@ body{background-image:url(https://lh4.googleusercontent.com/-XplyTa1Za-I/VMSgIyA
 .login-wrapper .mat-card{padding:40px 70px 50px;}
 .login-wrapper .mat-stroked-button{border:1px solid currentColor;line-height:54px;background:#FFF7FA;}
 .login-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix{padding:0.8375em 0;}
+
+.intro-2{
+  /* background: url("https://cdn.pixabay.com/photo/2018/01/15/22/22/essential-oils-3084952__340.jpg")no-repeat center center; */
+  background-color: black;
+  background-size: cover;
+}
+.view {
+  height: 100vh !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Logo {
+  height: 250px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

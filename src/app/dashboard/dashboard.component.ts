@@ -1,7 +1,5 @@
-import { Component, OnInit, Output  } from '@angular/core';  
-import { SocialLoginModule, AuthServiceConfig, AuthService } from 'angularx-social-login';  
+import { Component, OnInit, Output  } from '@angular/core'; 
 import { Socialusers } from '../Models/SocialUsers.model'  
-import { SocialloginService } from '../social-login.service';  
 import { Router, NavigationExtras } from '@angular/router'; 
 import { HttpClient } from '@angular/common/http';
 import { RecommendationPanelComponent } from '../recommendation-panel/recommendation-panel.component';
@@ -119,22 +117,16 @@ export class DashboardComponent implements OnInit {
   python: string = "http://ec2-100-26-219-28.compute-1.amazonaws.com:5000/predict";
   AWSUrl:string = "http://ec2-100-26-219-28.compute-1.amazonaws.com:3000/set_recommendation";
   getUSer: string = "http://ec2-100-26-219-28.compute-1.amazonaws.com:3000/get_user/1";
-  questions = surveys[0].questions;
-  socialusers = new Socialusers();  
-  constructor(public OAuth: AuthService,private router: Router, private http: HttpClient, private recommend: RecommendationPanelComponent) {
+  questions = surveys[0].questions; 
+  constructor(private router: Router, private http: HttpClient, private recommend: RecommendationPanelComponent) {
   }  
  
   ngOnInit() {  
-    this.socialusers = JSON.parse(localStorage.getItem('socialusers'));  
-    //console.log(this.socialusers.email);  
     
-  }  
-  logout() {  
-   alert(1);    
-    this.OAuth.signOut().then(data => {  
-      debugger;  
-      this.router.navigate([`/Login`]);  
-    });  
+  } 
+
+  logout() { 
+    this.router.navigate((['login']));  
   }  
 
   getvalues() {

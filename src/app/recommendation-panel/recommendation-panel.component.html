@@ -1,17 +1,27 @@
 
-<form #reccomendresult ="ngForm">
-	<mat-card class="example-card">
-	  <mat-card-header>
-		<mat-card-title>Reccommended Purfumes that Match Your Personality</mat-card-title>
-	  </mat-card-header>
-	  <mat-card-content>
-		<div *ngFor="let val of categorys">
-			<div class="container" *ngIf="val.type === category.type" >
-				<ol *ngFor="let citrus of val.scents" >
-					<li><img [src]="citrus.image" style="height: 130px;width: 120px;" /></li>
-				</ol>
-			</div>
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<mat-toolbar color="primary">
+		<mat-toolbar-row>
+		  <span ><label style="text-align:center">Recommended Perfumes That Matches Your Personality</label></span>
+		   
+		</mat-toolbar-row>
+		
+	  </mat-toolbar>
+	  <button (click)="logout()" style="float: right;" class="btn btn-outline-success mat-raised-button">Logout</button> 
+<div class="row" *ngFor="let val of categorys">
+	<div class="container" *ngIf="val.type === category.type">
+		<div class="column" *ngFor="let citrus of val.scents">
+			  <img [src]="citrus.image" alt="image" style="width:100%">
+			  <span><label style="font-family: Georgia, 'Times New Roman', Times, serif; font-style: italic;color: brown;">{{citrus.description}}</label></span>
 		</div>
-		</mat-card-content>
-	</mat-card>
-</form>
+	</div>
+</div>
+  
+</body>
+</html>
+  

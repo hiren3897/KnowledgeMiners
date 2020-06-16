@@ -28,6 +28,11 @@
 }
 .example-card {
   background-color:transparent;
+  max-width: 600px;
+    /* align-self: center; */
+    /* margin-left: 33%; */
+    margin: 0 auto;
+    width: 80%;
 }
 .mat-raised-button{
   background-color:transparent;
