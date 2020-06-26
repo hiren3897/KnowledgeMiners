@@ -1,27 +1,30 @@
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-	<mat-toolbar color="primary">
+<section class="view intro-2">
+	<mat-toolbar color="primary" class="title-center">
 		<mat-toolbar-row>
-		  <span ><label style="text-align:center">Recommended Perfumes That Matches Your Personality</label></span>
-		   
-		</mat-toolbar-row>
-		
-	  </mat-toolbar>
-	  <button (click)="logout()" style="float: right;" class="btn btn-outline-success mat-raised-button">Logout</button> 
-<div class="row" *ngFor="let val of categorys">
-	<div class="container" *ngIf="val.type === category.type">
-		<div class="column" *ngFor="let citrus of val.scents">
-			  <img [src]="citrus.image" alt="image" style="width:100%">
-			  <span><label style="font-family: Georgia, 'Times New Roman', Times, serif; font-style: italic;color: brown;">{{citrus.description}}</label></span>
-		</div>
+			 <span  class="span"><label>Recommended Perfumes That Matches Your Personality</label></span>
+        </mat-toolbar-row>
+    </mat-toolbar>
+<button (click)="logout()" style="float: right;" class="btn btn-outline-success mat-raised-button">Logout</button>
+	<div class="container" style="padding-top: -3em;">
+	  <div class="picsum-img-wrapper" *ngFor="let val of categorys">
+		<ngb-carousel  *ngIf="val.type === prediction.prediction && val.sex == prediction.sex" >
+		  <ng-template ngbSlide *ngFor="let citrus of val.scents">
+			<div style="height: max-content;width: fit-content;">
+				<img class="img-fluid" [src]="citrus.image" alt="Random slide">
+			</div>
+			<div class="carousel-caption">
+			  
+			  <div style="height: 60%;width: 50%;float: right;position: relative;">
+				<h2 [innerText]="citrus.name" style="font-family: Georgia, 'Times New Roman', Times, serif;color: black; float: right;font-weight: 400;text-decoration: cyan;"></h2>
+				<p [innerText]="citrus.description" style="font-family: Georgia, 'Times New Roman', Times, serif;color: black; float: right;"></p>
+				<button class="btn btn-outline-success mat-raised-button">
+					<a [href]="citrus.Link" target="_blank"  style="font-family: Georgia, 'Times New Roman', Times, serif;color: blue; float: right;">Click here for more...</a>
+				</button>	
+			  </div>
+			</div>
+		  </ng-template>
+		</ngb-carousel>
+	  </div>
 	</div>
-</div>
-  
-</body>
-</html>
-  
+
+</section>

@@ -5,10 +5,11 @@ import { UserHeaderComponent} from './user-header/user-header.component'
 import { AdminHeaderComponent } from './admin-header/admin-header.component'
 import { RegisterComponent } from './register/register.component'
 import { RecommendationPanelComponent } from './recommendation-panel/recommendation-panel.component'
+import { AuthGuard } from './auth/auth.guard';
 export const routes: Routes = [    
   {    
     path: '',    
-    redirectTo: 'login',    
+    redirectTo: '/login',    
     pathMatch: 'full',    
   },    
   {    
@@ -16,14 +17,15 @@ export const routes: Routes = [
     component: LoginComponent,    
     data: {    
       title: 'Login Page'    
-    }    
+    },   
   },    
   {    
     path: 'User', 
     component: UserHeaderComponent,    
     data: {    
       title: 'User DashBoard'    
-    }    
+    },  
+    canActivate: [AuthGuard],
   },  
   {    
     path: 'Admin',    
@@ -44,7 +46,8 @@ export const routes: Routes = [
     component: RecommendationPanelComponent,    
     data: {    
       title: 'Recommendation Panel DashBoard'    
-    }    
+    },
+    canActivate: [AuthGuard],
   },   
 ];    
 

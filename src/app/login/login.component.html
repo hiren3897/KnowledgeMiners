@@ -7,54 +7,34 @@
     <div class="row">  
         <div class="col-md-6 mx-auto">  
             <div class="card-group">
-                <div class="card p-4">  <br><br><br><br>
-                    <div class="card-body">  
-                        <form name="form">  
+                <div class="card p-4"> 
+                    <div class="card-body"> 
+                        <img src="assets/images/epita.png" alt="image" style="height: 9em;width: 13em;float: left;"/> 
+                        <img src="assets/images/giv.png" alt="image" style="height: 9em;width: 9em;float: right;"/> 
+                        <form name="form" [formGroup]="LoginForm">  
                             <div style="padding-top: 20px;" class="input-group mb-3">  
-                                <div class="input-group-prepend">  
-                                    <span class="input-group-text"><i class="icon-lock"></i></span>  
-                                </div>  
-                                <input type="text" name="UserName" [(ngModel)]='users.email' class="form-control sty1 hvr-overline-reveal" placeholder="Email"  
-                                    required>  
+                                
+                                <input type="email" required name="UserName" [(ngModel)]='users.email' class="form-control sty1 hvr-overline-reveal" placeholder="Email"  
+                                formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }"/>
                             </div>  
-                            <div class="input-group mb-4">  
-                                <div class="input-group-prepend">  
-                                    <span class="input-group-text"><i class="icon-lock"></i></span>  
-                                </div>  
-                                <input type="password" name="Password" [(ngModel)]='users.password' class="form-control" placeholder="Password">  
-                            </div>  
-                            <div>  
-                                <p style="color:#E92626;font-size:20px;font-weight:normal" Class="success" align="left">  
-                                     
-                                </p>  
-                            </div>  
+                            <div class="input-group mb-4">   
+                                <input type="password" required name="Password" [(ngModel)]='users.password' 
+                                class="form-control" placeholder="Password"
+                                formControlName="Pass"
+                                [ngClass]="{ 'is-invalid': submitted && f.Pass.errors }" >  
+                                
+                            </div>   
                             <div class="row">  
                                 <div class="col-6">  
-                                    <button (click)="LogInFunc()" type="submit" class="btn btn-primary px-4 hvr-buzz-out">Login</button>  
-                                </div>  
+                                    <button (click)="LogInFunc()" type="submit" class="btn btn-block btn-outline-success">Login</button>  
+                                </div>
                                 <div class="col-6 text-right"> 
                                     <button type="button" class="btn btn-link px-0" (click)="GoToRegester()">New User?</button> 
                                 </div>  
+                                <hr style="border-top: 2px solid black;"> 
+                                <img class="Logo" src="assets/images/km.png" alt="image"/>
                             </div>  
-                        </form>  
-                            <hr style="border-top: 1px solid #eee;">  
-                            <div class="row">  
-                                <!-- <div class="col-6">  
-                                    Facebook
-                                    
-                                    <button (click)="socialSignIn('facebook')" class="loginBtn loginBtn--facebook hvr-bounce-in">
-                                        Facebook  
-                                    </button>  
-                                </div>  
-                                <div class="col-6 text-right">  
-                                    <button (click)="socialSignIn('google')" class="loginBtn loginBtn--google hvr-bounce-in">  
-                                        Google  
-                                    </button>  
-                                </div> -->
-                                
-                                <img class="Logo" src="assets/images/minersLOGO.jpg" alt="image"/>
-                                <label style="position: relative;padding-left: 5em;font-size:larger;font-style:normal;font-weight: bold;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Welcome To Recommendation System</label>
-                            </div>
+                        </form>        
                     </div>  
                 </div>  
             </div>  

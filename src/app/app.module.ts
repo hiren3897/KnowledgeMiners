@@ -4,7 +4,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppComponent } from './app.component';  
 import { GoogleLoginProvider, FacebookLoginProvider, AuthService } from 'angularx-social-login';  
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';  
-import { LoginComponent } from './login/login.component';  
+import { LoginComponent} from './login/login.component';  
 import { DashboardComponent } from './dashboard/dashboard.component';  
 import { AppRoutingModule } from '../app/app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';  
@@ -16,7 +16,8 @@ import { AdminHeaderComponent } from './admin-header/admin-header.component';
 import { RegisterComponent } from './register/register.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { RecommendationPanelComponent } from './recommendation-panel/recommendation-panel.component';
-import { GalleryModule } from 'ng-gallery';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 
 
@@ -54,14 +55,14 @@ export function socialConfigs() {
     AngularMaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    GalleryModule,
+    NgbModule,
   ],  
   providers: [ 
     AuthService,  
     {  
       provide: AuthServiceConfig,  
       useFactory: socialConfigs  
-    }  
+    }, 
   ],  
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA] 

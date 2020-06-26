@@ -113,6 +113,7 @@ export class DashboardComponent implements OnInit {
   favoriteSeason:string;
   UserDetails: string;
   posteddata: string;
+  sex: string;
   WebURL: string = "http://127.0.0.1:12345/predict";
   python: string = "http://ec2-100-26-219-28.compute-1.amazonaws.com:5000/predict";
   AWSUrl:string = "http://ec2-100-26-219-28.compute-1.amazonaws.com:3000/set_recommendation";
@@ -134,27 +135,29 @@ export class DashboardComponent implements OnInit {
   }
 
  public Submit() {
+  this.responses.push(this.favoriteSeason);
     var UserResponses = Object.assign({}, ...this.responses);
     console.log(UserResponses);
     var headers: { "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token", "Access-Control-Allow-Origin": "*"}
     this.http.post(this.python,UserResponses).subscribe(data => {  
-    Object.entries(data).forEach(([key, value]) => {
-        this.posteddata = value;
-        console.log(this.posteddata);
-        Object.entries(this.recommend.categorys).forEach(([key, value]) => {
-          if(value.type.includes(this.posteddata)) {
-            let navigationExtras: NavigationExtras = {
-              queryParams: {
-                special: JSON.stringify(this.posteddata)
-              }
-            };
-            this.router.navigate([`/result`],navigationExtras);
-          }else {
-            return exit;
-          }
-          }
-       );
-     });
+      console.log(data);
+     Object.entries(data).forEach(([key, value]) => {
+         this.posteddata = value;
+         console.log(this.posteddata);
+         Object.entries(this.recommend.categorys).forEach(([key, value]) => {
+           if(value.type.includes(this.posteddata)) {
+             let navigationExtras: NavigationExtras = {
+               queryParams: {
+                 special: JSON.stringify(data)
+               }
+             };
+             this.router.navigate([`/result`],navigationExtras);
+           }else {
+             return exit;
+           }
+           }
+        );
+      });
     })  
     this.http.get<Users>(this.getUSer).subscribe(data => {
       // this.UserDetails = JSON.stringify(data);

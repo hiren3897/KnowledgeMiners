@@ -1,16 +1,17 @@
-
+<section class="view">
   <form #surveyForm ="ngForm">
     
   <mat-card class="example-card" *appQuestionsLoop="let question of questions form surveyForm; let i = index; let c = controller">
-    <button (click)="logout()" style="float: right;" class="btn btn-outline-success mat-raised-button">Logout</button>  
+    <button (click)="logout()" style="float: right;background-color: white;" class="btn mat-raised-button  hvr-buzz-out">Logout</button>  
     <mat-card-header>
-      <mat-card-title>{{i + 1}}. {{question.question}}</mat-card-title>
+      <mat-card-title style="color:rgb(255, 255, 255);">{{i + 1}}. {{question.question}}</mat-card-title>
       
-      <mat-card-subtitle>Select one of the following options</mat-card-subtitle>
+      <mat-card-subtitle style="color:rgb(255, 255, 255);">Select one of the following options</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <mat-radio-group required *ngIf="question.type === 'radio'" class="example-radio-group" name="favoriteSeason" [(ngModel)]="favoriteSeason">
-        <mat-radio-button class="example-radio-button" *ngFor="let season of question.options" [value]="season" required>
+      <mat-radio-group *ngIf="question.type === 'radio'" class="example-radio-group" name="favoriteSeason" [(ngModel)]="favoriteSeason"
+      >
+        <mat-radio-button required class="example-radio-button" ng-model="favoriteSeason" *ngFor="let season of question.options" [value]="season" selected>
           {{season.age}}
           {{season.sex}}
           {{season.origin}}
@@ -21,17 +22,18 @@
           {{season.instinct}}
         </mat-radio-button>
         <!-- <img class="image" src="{{question.image}}"  width="500" height="350"> -->
-        <button class="mat-raised-button" type="submit" (click)="getvalues()">Submit response</button>
+        <!-- <button class="mat-raised-button" type="submit" (click)="getvalues()">Submit response</button> -->
       </mat-radio-group>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button class="mat-raised-button btn-outline-success" (click)="c.prev()" [disabled]="c.isFirst()"><mat-icon>arrow_back</mat-icon></button>
+      <button mat-button class="btn mat-raised-button hvr-wobble-horizontal" style="float: left;background-color: white;" (click)="c.prev()" [disabled]="c.isFirst()"><mat-icon>arrow_back</mat-icon></button>
       
       <ng-template #nextBtn>
-        <button mat-button class="mat-raised-button btn-outline-success"  (click)="c.next()"><mat-icon>arrow_forward</mat-icon></button>
+        <button mat-button class="btn mat-raised-button hvr-wobble-to-top-right" style="float: right;background-color: white;" [disabled]="!favoriteSeason" (click)="c.next();getvalues()"><mat-icon>arrow_forward</mat-icon></button>
       </ng-template>
-      <button mat-raised-button class="btn-outline-success" style="float:right;" *ngIf="c.isLast(); else nextBtn" (click)="Submit()">Click To See Your Fragrance</button><br><br>
+      <button mat-button class="mat-raised-button btn hvr-float-shadow" style="float:right;background-color: white;" *ngIf="c.isLast(); else nextBtn" (click)="Submit()">Click To See Your Fragrance</button><br><br>
       
     </mat-card-actions>
   </mat-card>
   </form>
+</section>

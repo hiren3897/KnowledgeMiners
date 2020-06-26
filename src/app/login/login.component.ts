@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';  
-import { GoogleLoginProvider, FacebookLoginProvider, AuthService } from 'angularx-social-login';  
-import { Socialusers } from '../Models/SocialUsers.model'  
-import { SocialloginService } from '../social-login.service';  
-import { Router, ActivatedRoute, Params } from '@angular/router';  
+import { Component, OnInit} from '@angular/core';    
+import { Router } from '@angular/router';  
 import { Users } from '../Models/user.model';
 import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { AuthService } from '../auth/auth.service'
 
 @Component({  
   selector: 'app-login',  
@@ -16,44 +16,43 @@ export class LoginComponent implements OnInit {
   users = new Users();  
   EnteredEmail: String;
   EnteredPassword: String;
+  submitted = false;
   Login:string = "http://ec2-100-26-219-28.compute-1.amazonaws.com:3000/login";
-    socialusers=new Socialusers();  
+  getUSer: string = "http://ec2-100-26-219-28.compute-1.amazonaws.com:3000/get_user/1";
   constructor(  
     public OAuth: AuthService,  
-    private SocialloginService: SocialloginService,  
     private router: Router,
     private http: HttpClient
   ) { }  
-  ngOnInit() {  
+  ngOnInit() {    
+    
   }  
-  public socialSignIn(socialProvider: string) {  
-    let socialPlatformProvider;  
-    if (socialProvider === 'facebook') {  
-      socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;  
-    } else if (socialProvider === 'google') {  
-      socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;  
-    }  
-    this.OAuth.signIn(socialPlatformProvider).then(socialusers => {  
-      console.log(socialProvider, socialusers);  
-      console.log(socialusers);  
-      this.Savesresponse(socialusers);  
-    });  
-  }  
-  Savesresponse(socialusers: Socialusers) {  
-    this.SocialloginService.Savesresponse(socialusers).subscribe((res: any) => {  
-      debugger;  
-      console.log(res);  
-      this.socialusers=res;  
-      this.response = res.userDetail;  
-      localStorage.setItem('socialusers', JSON.stringify( this.socialusers));  
-      console.log(localStorage.setItem('socialusers', JSON.stringify(this.socialusers)));  
-      this.router.navigate([`/User`]);  
-    })  
-  } 
+
+  LoginForm = new FormGroup({
+    Email: new FormControl('', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
+    Pass: new FormControl('',[Validators.required,Validators.minLength(8)])
+});
+   
+get f() { return this.LoginForm.controls; }
+
   LogInFunc() {
-    this.http.post(this.Login,this.users).subscribe(data => {
-      this.router.navigate((['User']));
-    })
+    this.submitted = true;
+    if (this.LoginForm.invalid) {
+      return;
+    }else {
+      this.http.post(this.Login,this.users).subscribe(data => {
+        this.OAuth.login().subscribe(() => {
+          if(this.OAuth.isLoggedIn) {
+            this.router.navigate((['User']));
+          }else {
+            alert("Please enter correct Email and Password");
+          }
+        })
+        
+      })
+    }
+
+   
   } 
   GoToRegester() {
     this.router.navigate((['Register']));

@@ -1,22 +1,39 @@
-* {
-	box-sizing: border-box;
-  }
-  
-  body {
-	margin: 0;
-	font-family: Arial;
-  }
-  
-  /* The grid: Four equal columns that floats next to each other */
-  .column {
-	float: left;
-	width: 25%;
-	padding: 10px;
-  }
-  
-  /* Clear floats after the columns */
-  .row:after {
-	content: "";
-	display: table;
-	clear: both;
-  }
+.intro-2{
+  background: url("/assets/images/bg-02.jpg")repeat center center;
+  background-size: cover;
+}
+.view {
+  height: 100vh !important;
+}
+
+::ng-deep .carousel-control-prev-icon{
+  filter: invert(1);
+}
+::ng-deep .carousel-control-next-icon{
+  filter: invert(1);
+}
+::ng-deep .carousel-indicators li {
+  width : 40px!important;
+  background-color: black;
+}
+
+.span {
+  margin: auto;
+  text-align: center;
+}
+.title-center {
+  flex: 1 1 auto;
+  text-align: center;
+}
+.container {
+  top: 5em;
+  position: relative;
+}
+
+.carousel-caption {
+top: 20%;
+transform: translateY(-20%);
+}
+
+
+
