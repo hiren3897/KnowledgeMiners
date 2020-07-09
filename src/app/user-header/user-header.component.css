@@ -7,7 +7,7 @@
     background-size: cover;
   } */
   .view {
-    background: url("/assets/images/backG.jpg")repeat center center;
+    background: url("/assets/images/dashBack.jpg")repeat center center;
     background-size: cover;
     height: 100vh !important;
   }

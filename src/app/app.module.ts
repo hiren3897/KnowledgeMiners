@@ -17,6 +17,7 @@ import { RegisterComponent } from './register/register.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { RecommendationPanelComponent } from './recommendation-panel/recommendation-panel.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { HomePageComponent } from './home-page/home-page.component';
 
 
 
@@ -46,7 +47,8 @@ export function socialConfigs() {
     AdminHeaderComponent,
     RegisterComponent,
     AboutUsComponent,
-    RecommendationPanelComponent
+    RecommendationPanelComponent,
+    HomePageComponent
   ],  
   imports: [  
     BrowserModule,  

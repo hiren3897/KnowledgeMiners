@@ -6,10 +6,11 @@ import { AdminHeaderComponent } from './admin-header/admin-header.component'
 import { RegisterComponent } from './register/register.component'
 import { RecommendationPanelComponent } from './recommendation-panel/recommendation-panel.component'
 import { AuthGuard } from './auth/auth.guard';
+import { HomePageComponent } from './home-page/home-page.component';
 export const routes: Routes = [    
   {    
     path: '',    
-    redirectTo: '/login',    
+    redirectTo: '/home',    
     pathMatch: 'full',    
   },    
   {    
@@ -19,6 +20,13 @@ export const routes: Routes = [
       title: 'Login Page'    
     },   
   },    
+  {    
+    path: 'home',    
+    component: HomePageComponent,    
+    data: {    
+      title: 'Home Page'    
+    },   
+  },
   {    
     path: 'User', 
     component: UserHeaderComponent,    

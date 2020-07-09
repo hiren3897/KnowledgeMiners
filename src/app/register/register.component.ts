@@ -36,8 +36,9 @@ export class RegisterComponent implements OnInit {
     this.submitted = true;
     if (this.registerForm.invalid) {
       alert("Enter Valid Email and Password");
-    }else {
-    this.http.post(this.Setuser, this.users).subscribe(Data => {
+    }else { 
+    this.http.post<Users>(this.Setuser, this.users).subscribe(Data => {
+      localStorage.setItem('userID',JSON.stringify(Data));
       this.router.navigate((['User']));
     })
   } 

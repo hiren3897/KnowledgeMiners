@@ -1,6 +1,6 @@
 import { Component, OnInit, Output  } from '@angular/core'; 
 import { Socialusers } from '../Models/SocialUsers.model'  
-import { Router, NavigationExtras } from '@angular/router'; 
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router'; 
 import { HttpClient } from '@angular/common/http';
 import { RecommendationPanelComponent } from '../recommendation-panel/recommendation-panel.component';
 import { exit } from 'process';
@@ -113,13 +113,20 @@ export class DashboardComponent implements OnInit {
   favoriteSeason:string;
   UserDetails: string;
   posteddata: string;
+  userID:string
   sex: string;
   WebURL: string = "http://127.0.0.1:12345/predict";
   python: string = "http://ec2-100-26-219-28.compute-1.amazonaws.com:5000/predict";
   AWSUrl:string = "http://ec2-100-26-219-28.compute-1.amazonaws.com:3000/set_recommendation";
-  getUSer: string = "http://ec2-100-26-219-28.compute-1.amazonaws.com:3000/get_user/1";
+  getUSer: string = "http://ec2-100-26-219-28.compute-1.amazonaws.com:3000/get_user/";
   questions = surveys[0].questions; 
-  constructor(private router: Router, private http: HttpClient, private recommend: RecommendationPanelComponent) {
+  constructor(private router: Router, private http: HttpClient,private route: ActivatedRoute, private recommend: RecommendationPanelComponent) {
+    this.route.queryParams.subscribe(params => {
+      if (params && params.special) {
+        this.userID = JSON.parse(params.special)
+        console.log(this.userID); 
+      }
+    });
   }  
  
   ngOnInit() {  
@@ -127,7 +134,7 @@ export class DashboardComponent implements OnInit {
   } 
 
   logout() { 
-    this.router.navigate((['login']));  
+    this.router.navigate((['home']));  
   }  
 
   getvalues() {
@@ -159,17 +166,15 @@ export class DashboardComponent implements OnInit {
         );
       });
     })  
-    this.http.get<Users>(this.getUSer).subscribe(data => {
-      // this.UserDetails = JSON.stringify(data);
-      // console.log(this.UserDetails);
-      Object.entries(data).forEach(([key, value]) => {
-      console.log(key,value);
-        // this.responses.push(key + value.email, key + value.password,value.timestamp);
-        // console.log(this.responses);
+    this.http.get<Users>(this.getUSer + this.userID).subscribe(data => {
+     var User =  JSON.stringify(data);
+     var UserDetails = JSON.parse(User);
+     var mergedResponses = Object.assign({}, ...UserDetails,UserResponses)
+      console.log(mergedResponses);
+      this.http.post(this.AWSUrl, mergedResponses).subscribe(res => {
+        console.log("Responses Saved to database")
+        alert("Responses Saved to database")
       })
-    
-    
-    
     })
   }
 }

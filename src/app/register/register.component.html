@@ -16,7 +16,7 @@
             <input matInput  placeholder="Email"
             required
             type="email" name="userID" [(ngModel)]="users.email" class="mat-form-field-autofill-control" 
-            formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+            formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }"
             />
           
           </mat-form-field>
@@ -25,7 +25,7 @@
             <input matInput placeholder="Password" type="password" name="Password" 
             [(ngModel)]="users.password" class="mat-form-field-autofill-control"
             formControlName="Pass" required
-            [ngClass]="{ 'is-invalid': submitted && f.Pass.errors }" >
+            [ngClass]="{'is-invalid': submitted && f.Pass.errors}" />
           </mat-form-field>
   
         </mat-card-content>

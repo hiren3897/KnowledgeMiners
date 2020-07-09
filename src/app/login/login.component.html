@@ -14,7 +14,8 @@
                         <form name="form" [formGroup]="LoginForm">  
                             <div style="padding-top: 20px;" class="input-group mb-3">  
                                 
-                                <input type="email" required name="UserName" [(ngModel)]='users.email' class="form-control sty1 hvr-overline-reveal" placeholder="Email"  
+                                <input type="email" required name="UserName" [(ngModel)]='users.email' 
+                                class="form-control sty1 hvr-overline-reveal" placeholder="Email"  
                                 formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }"/>
                             </div>  
                             <div class="input-group mb-4">   
